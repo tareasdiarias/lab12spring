@@ -1,0 +1,155 @@
+.cliente-select-container {
+    position: relative;
+    width: 100%;
+}
+
+.cliente-select-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 0 12px;
+    transition: all 0.2s;
+}
+
+.cliente-select-input-wrapper:focus-within {
+    border-color: #0073aa;
+    box-shadow: 0 0 0 3px rgba(0, 115, 170, 0.1);
+}
+
+.search-icon {
+    color: #999;
+    margin-right: 8px;
+    font-size: 14px;
+}
+
+.cliente-select-input {
+    flex: 1;
+    border: none;
+    background: none;
+    padding: 10px 0;
+    font-size: 13px;
+    outline: none;
+    font-family: inherit;
+}
+
+.clear-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #999;
+    padding: 4px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+}
+
+.clear-btn:hover {
+    color: #333;
+}
+
+.cliente-select-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-top: none;
+    border-radius: 0 0 6px 6px;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-item {
+    padding: 12px;
+    border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-size: 13px;
+    color: #333;
+    text-align: left;
+    background: none;
+    border: none;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.dropdown-item:hover:not(.loading):not(.empty) {
+    background: #f8f9fa;
+}
+
+.dropdown-item.selected {
+    background: #e3f2fd;
+    color: #0073aa;
+    font-weight: 600;
+}
+
+.dropdown-item.loading,
+.dropdown-item.empty {
+    cursor: default;
+    color: #999;
+    padding: 20px 12px;
+    text-align: center;
+}
+
+.client-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.client-name {
+    font-weight: 600;
+    color: #333;
+}
+
+.client-details {
+    font-size: 11px;
+    color: #999;
+}
+
+.selected-client-info {
+    margin-top: 12px;
+    padding: 10px 12px;
+    background: #e8f5e9;
+    border-left: 4px solid #28a745;
+    border-radius: 4px;
+}
+
+.info-badge {
+    font-size: 13px;
+    color: #2e7d32;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.info-details {
+    font-size: 12px;
+    color: #558b2f;
+}
+
+/* Scrollbar personalizado */
+.cliente-select-dropdown::-webkit-scrollbar {
+    width: 6px;
+}
+
+.cliente-select-dropdown::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 3px;
+}
+
+.cliente-select-dropdown::-webkit-scrollbar-thumb {
+    background: #c0c0c0;
+    border-radius: 3px;
+}
+
+.cliente-select-dropdown::-webkit-scrollbar-thumb:hover {
+    background: #999;
+}
