@@ -1,17 +1,33 @@
 spring:
   datasource:
-    url: jdbc:postgresql://postgres:5432/lab012
-    username: usuario
-    password: password
+    url: jdbc:postgresql://postgres:5432/lab012      # Host 'postgres' para pipeline (no 'localhost')
+    username: usuario                              # Debe coincidir con tu pipeline/service
+    password: password                            # Debe coincidir con tu pipeline/service
     driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10                       # Pool básico para pruebas/CI
+      minimum-idle: 1
+      idle-timeout: 10000
+      connection-timeout: 30000
+      pool-name: "HikariCP"
   jpa:
     hibernate:
-      ddl-auto: update
-    show-sql: true
+      ddl-auto: update                            # Usa 'update' en dev/lab, nunca en prod
+      naming:
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
+        show_sql: true
+        use_sql_comments: true
+        jdbc:
+          lob:
+            non_contextual_creation: true         # Esencial para manejar campos LOB correctamente
+  thymeleaf:
+    check-template-location: false                # Desactiva alerta si usas REST y React, no vistas HTML
 logging:
   level:
-    com.restaurante: DEBUG
+    com.restaurante: DEBUG                       # Logging detallado de tu app
+    org.hibernate.SQL: debug                     # Opcional para ver SQL en dev
