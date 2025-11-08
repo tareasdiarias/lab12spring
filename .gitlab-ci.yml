@@ -1,0 +1,36 @@
+stages:
+  - test
+  - build-backend
+  - build-frontend
+
+# TEST: Ejecuta las pruebas unitarias del backend
+backend-test:
+  stage: test
+  image: maven:3.9.6-eclipse-temurin-17
+  script:
+    - mvn clean test -B
+  allow_failure: false
+
+# BUILD: Compila y empaqueta el backend
+backend-build:
+  stage: build-backend
+  image: maven:3.9.6-eclipse-temurin-17
+  script:
+    - mvn clean package -B -DskipTests
+  artifacts:
+    paths:
+      - target/*.jar
+
+# BUILD FRONTEND: Instala dependencias, corre pruebas y compila React
+frontend-build:
+  stage: build-frontend
+  image: node:18
+  script:
+    - cd frontend
+    - npm install
+    - npm run test -- --watchAll=false
+    - npm run build
+  artifacts:
+    paths:
+      - frontend/build
+  allow_failure: false
