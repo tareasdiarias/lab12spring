@@ -3,11 +3,27 @@ stages:
   - build-backend
   - build-frontend
 
-# TEST: Ejecuta las pruebas unitarias del backend
+# Variables para la base de datos del servicio PostgreSQL
+variables:
+  POSTGRES_DB: lab012
+  POSTGRES_USER: usuario
+  POSTGRES_PASSWORD: password
+  POSTGRES_HOST_AUTH_METHOD: trust
+
+# Levanta el servicio de PostgreSQL para todos los jobs
+services:
+  - name: postgres:15
+    alias: postgres
+
+# TEST: Pruebas del backend con conexión a PostgreSQL
 backend-test:
   stage: test
   image: maven:3.9.6-eclipse-temurin-17
   script:
+    - echo "db.host=postgres" > src/test/resources/application-test.properties
+    - echo "db.port=5432" >> src/test/resources/application-test.properties
+    - echo "db.username=usuario" >> src/test/resources/application-test.properties
+    - echo "db.password=password" >> src/test/resources/application-test.properties
     - mvn clean test -B
   allow_failure: false
 
