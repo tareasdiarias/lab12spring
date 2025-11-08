@@ -65,13 +65,9 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Eliminar package-lock.json si existe
-        working-directory: ./frontend
-        run: rm -f package-lock.json
-
       - name: Instalar dependencias
         working-directory: ./frontend
-        run: npm install --legacy-peer-deps --no-package-lock
+        run: npm ci
 
       - name: Ejecutar tests del frontend
         working-directory: ./frontend
