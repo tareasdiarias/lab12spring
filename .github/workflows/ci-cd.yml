@@ -7,7 +7,6 @@ on:
     branches: [ main ]
 
 jobs:
-  # JOB 1: Test y build del backend (Spring Boot)
   backend-test-and-build:
     runs-on: ubuntu-latest
 
@@ -54,7 +53,6 @@ jobs:
           name: backend-jar
           path: target/*.jar
 
-  # JOB 2: Test y build del frontend (React + Vite)
   frontend-test-and-build:
     runs-on: ubuntu-latest
 
@@ -66,12 +64,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
-          cache-dependency-path: frontend/package-lock.json
 
       - name: Instalar dependencias
         working-directory: ./frontend
-        run: npm ci
+        run: npm install  # <-- CAMBIADO DE npm ci A npm install
 
       - name: Ejecutar tests del frontend
         working-directory: ./frontend
